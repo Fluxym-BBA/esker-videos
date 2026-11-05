@@ -1,0 +1,69 @@
+/* ============ ANIMATIONS DE LA ROUE ============ */
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes spinrev{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+@keyframes breathe{0%,100%{opacity:.22}50%{opacity:.68}}
+@keyframes pulseR{0%{r:var(--r0);opacity:.55}100%{r:var(--r1);opacity:0}}
+@keyframes dashflow{to{stroke-dashoffset:-1000}}
+@keyframes cometS2P{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-620}}
+@keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+@keyframes segIn{from{opacity:0;transform:translate(var(--ix),var(--iy)) scale(.9)}to{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes shimmer{0%{opacity:.25}50%{opacity:.9}100%{opacity:.25}}
+
+.rot-slow{animation:spin 90s linear infinite}
+.rot-rev{animation:spinrev 140s linear infinite}
+.rot-fast{animation:spin 42s linear infinite}
+.rot-med{animation:spinrev 64s linear infinite}
+.breathe{animation:breathe 5s ease-in-out infinite}
+
+/* --- segments --- */
+.seg{cursor:pointer;transition:transform .42s cubic-bezier(.34,1.46,.64,1),filter .32s,opacity .32s;animation:segIn .7s cubic-bezier(.23,1,.32,1) both;animation-delay:var(--d,0s)}
+.seg .sfill{transition:fill .32s ease,stroke .32s,stroke-width .32s}
+.seg .srim{transition:opacity .32s,fill .32s}
+.seg .slab{pointer-events:none;transition:fill .3s ease}
+.seg .scnt{transition:opacity .3s,fill .3s;opacity:.78}
+.seg .sglow{opacity:0;transition:opacity .35s}
+.seg:hover,.seg.active{transform:translate(var(--tx),var(--ty))}
+.seg:hover .sfill,.seg.active .sfill{fill:var(--c);stroke:#fff;stroke-width:2.6}
+.seg:hover .slab,.seg.active .slab{fill:#fff}
+.seg:hover .scnt,.seg.active .scnt{opacity:1;fill:#fff}
+.seg:hover .srim,.seg.active .srim{opacity:1;fill:#fff}
+.seg:hover .sglow,.seg.active .sglow{opacity:1}
+.seg:focus{outline:none}
+.seg:focus-visible .sfill{stroke:var(--dark-blue);stroke-width:4}
+.seg.soon .sfill{stroke-dasharray:7 5}
+.wheel-svg.dimmed .seg:not(:hover):not(.active){opacity:.42;filter:saturate(.45)}
+
+/* --- arcs de suite dynamiques --- */
+.suitearc-base{transition:stroke-width .4s,opacity .4s}
+.suitearc-flow{stroke-dasharray:14 22;animation:dashflow 9s linear infinite;transition:opacity .4s,stroke-width .4s}
+.suitearc-comet{stroke-dasharray:46 580;animation:cometS2P 5.2s cubic-bezier(.5,0,.5,1) infinite;opacity:.95;transition:animation-duration .4s}
+.suitegrp.lit .suitearc-base{stroke-width:5.2;opacity:1}
+.suitegrp.lit .suitearc-flow{opacity:.95;stroke-width:3.4;animation-duration:3.4s}
+.suitegrp.lit .suitearc-comet{animation-duration:2.1s}
+.suitegrp.dim{opacity:.34}
+.suitegrp{transition:opacity .4s}
+.suitelab{transition:fill .35s,opacity .35s}
+.suitegrp.lit .suitelab{fill:var(--blue)}
+.suite-node{transition:r .4s cubic-bezier(.34,1.5,.64,1),fill .35s}
+.suitegrp.lit .suite-node{r:9.5}
+
+/* --- noyau central --- */
+.hub-default,.hub-hover{transition:opacity .34s ease,transform .34s cubic-bezier(.23,1,.32,1);transform-origin:center}
+.hub-hover{opacity:0;transform:scale(.94)}
+.wheel-svg.hovering .hub-default{opacity:0;transform:scale(1.05)}
+.wheel-svg.hovering .hub-hover{opacity:1;transform:scale(1)}
+.hub-sweep{animation:spin 11s linear infinite;transform-origin:center;opacity:.5}
+.hub-ring-a{animation:spinrev 52s linear infinite;transform-origin:center}
+.hub-ring-b{animation:spin 78s linear infinite;transform-origin:center}
+
+/* --- pastille Synergy AI --- */
+.aihub{cursor:help}
+.aihub .aiorb{animation:floaty 4.5s ease-in-out infinite}
+.aihub .airing{animation:spin 26s linear infinite}
+.aihub:hover .aicore{fill:var(--sunlight)}
+.ainode{animation:shimmer 3s ease-in-out infinite}
+
+/* --- bandeau socle --- */
+.bandg{cursor:default}
+.bandg .bandsheen{opacity:.0;animation:shimmer 6s ease-in-out infinite}
